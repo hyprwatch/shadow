@@ -1,0 +1,19 @@
+# Rocky Linux 9 (RHEL 9 compatible)
+# Requires: docker build -t shadow-builder -f testing/Containerfile.builder .
+
+FROM shadow-builder AS builder
+
+FROM rockylinux:9-minimal
+LABEL org.opencontainers.image.description="Hyprwatch Shadow Agent - Rocky Linux 9"
+
+RUN microdnf install -y ca-certificates && microdnf clean all
+
+COPY --from=builder --chown=root:root /shadow /usr/local/bin/shadow
+COPY --from=builder --chown=root:root /osqueryd /usr/local/bin/osqueryd
+RUN chmod 755 /usr/local/bin/shadow /usr/local/bin/osqueryd
+
+RUN mkdir -p /var/lib/shadow
+
+ENV SHADOW_DATA_DIR=/var/lib/shadow
+
+ENTRYPOINT ["/usr/local/bin/shadow", "--osqueryd-path", "/usr/local/bin/osqueryd"]

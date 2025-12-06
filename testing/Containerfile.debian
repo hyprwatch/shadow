@@ -1,0 +1,21 @@
+# Debian 12 (Bookworm)
+# Requires: docker build -t shadow-builder -f testing/Containerfile.builder .
+
+FROM shadow-builder AS builder
+
+FROM debian:12-slim
+LABEL org.opencontainers.image.description="Hyprwatch Shadow Agent - Debian 12"
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY --from=builder --chown=root:root /shadow /usr/local/bin/shadow
+COPY --from=builder --chown=root:root /osqueryd /usr/local/bin/osqueryd
+RUN chmod 755 /usr/local/bin/shadow /usr/local/bin/osqueryd
+
+RUN mkdir -p /var/lib/shadow
+
+ENV SHADOW_DATA_DIR=/var/lib/shadow
+
+ENTRYPOINT ["/usr/local/bin/shadow", "--osqueryd-path", "/usr/local/bin/osqueryd"]
