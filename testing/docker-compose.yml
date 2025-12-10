@@ -18,11 +18,11 @@ services:
       dockerfile: testing/Containerfile.ubuntu
     environment:
       - SHADOW_ORG_TOKEN=${SHADOW_ORG_TOKEN:?SHADOW_ORG_TOKEN is required}
-      # - SHADOW_SERVER_HOST=localhost:4001
-      # - SHADOW_CA_CERT=/certs/selfsigned.pem
+      - SHADOW_SERVER_HOST=localhost:4001
+      - SHADOW_CA_CERT=/certs/selfsigned.pem
       - SHADOW_HOST_IDENTIFIER=instance
     volumes:
-      - ../../../server/priv/cert/selfsigned.pem:/certs/selfsigned.pem:ro
+      - ../../hyprwatch/server/priv/cert/selfsigned.pem:/certs/selfsigned.pem:ro
     network_mode: host
     deploy:
       replicas: 2
@@ -34,11 +34,11 @@ services:
       dockerfile: testing/Containerfile.fedora
     environment:
       - SHADOW_ORG_TOKEN=${SHADOW_ORG_TOKEN:?SHADOW_ORG_TOKEN is required}
-      # - SHADOW_SERVER_HOST=localhost:4001
-      # - SHADOW_CA_CERT=/certs/selfsigned.pem
+      - SHADOW_SERVER_HOST=localhost:4001
+      - SHADOW_CA_CERT=/certs/selfsigned.pem
       - SHADOW_HOST_IDENTIFIER=instance
     volumes:
-      - ../../../server/priv/cert/selfsigned.pem:/certs/selfsigned.pem:ro
+      - ../../hyprwatch/server/priv/cert/selfsigned.pem:/certs/selfsigned.pem:ro
     network_mode: host
     deploy:
       replicas: 2
@@ -50,11 +50,11 @@ services:
       dockerfile: testing/Containerfile.debian
     environment:
       - SHADOW_ORG_TOKEN=${SHADOW_ORG_TOKEN:?SHADOW_ORG_TOKEN is required}
-      # - SHADOW_SERVER_HOST=localhost:4001
-      # - SHADOW_CA_CERT=/certs/selfsigned.pem
+      - SHADOW_SERVER_HOST=localhost:4001
+      - SHADOW_CA_CERT=/certs/selfsigned.pem
       - SHADOW_HOST_IDENTIFIER=instance
     volumes:
-      - ../../../server/priv/cert/selfsigned.pem:/certs/selfsigned.pem:ro
+      - ../../hyprwatch/priv/cert/selfsigned.pem:/certs/selfsigned.pem:ro
     network_mode: host
     deploy:
       replicas: 2
@@ -66,11 +66,11 @@ services:
       dockerfile: testing/Containerfile.rocky
     environment:
       - SHADOW_ORG_TOKEN=${SHADOW_ORG_TOKEN:?SHADOW_ORG_TOKEN is required}
-      # - SHADOW_SERVER_HOST=localhost:4001
-      # - SHADOW_CA_CERT=/certs/selfsigned.pem
+      - SHADOW_SERVER_HOST=localhost:4001
+      - SHADOW_CA_CERT=/certs/selfsigned.pem
       - SHADOW_HOST_IDENTIFIER=instance
     volumes:
-      - ../../../server/priv/cert/selfsigned.pem:/certs/selfsigned.pem:ro
+      - ../../hyprwatch/priv/cert/selfsigned.pem:/certs/selfsigned.pem:ro
     network_mode: host
     deploy:
       replicas: 2
